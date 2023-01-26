@@ -64,4 +64,28 @@ app.put('/tasks', (req, res) => {
   res.status(200).json(tasks[requiredTaskIndex]).end();
 });
 
+// DELETE methods
 
+app.delete('/tasks/:id', (req, res) => {
+  console.log('Deleting single task');
+  const { id } = req.params;
+  const requiredTaskIndex = tasks.findIndex((task) => task.id === Number(id));
+  console.log(requiredTaskIndex);
+  if (requiredTaskIndex === -1) {
+    res.status(404).send('Task not found');
+  } else {
+    tasks.splice(requiredTaskIndex, 1);
+    res.status(200).json(tasks).end();
+  }
+});
+  
+// PATCH methods
+  
+app.patch('/tasks/:id', (req, res) => {
+  console.log('Patching a task');
+  const {id} = req.params;
+  const requiredTaskIndex = tasks.findIndex(task => task.id === Number(id));
+  if(requiredTaskIndex === -1 ){
+    res.status(200);
+  }
+});
