@@ -86,6 +86,14 @@ app.patch('/tasks/:id', (req, res) => {
   const {id} = req.params;
   const requiredTaskIndex = tasks.findIndex(task => task.id === Number(id));
   if(requiredTaskIndex === -1 ){
-    res.status(200);
+    res.status(400).send('Task not found');
+  }
+  else{
+    tasks[requiredTaskIndex]={
+      ...tasks[requiredTaskIndex],
+      ...req.body
+    };
+    res.status(200).json(tasks[requiredTaskIndex]);
   }
 });
+  
